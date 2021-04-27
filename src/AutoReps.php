@@ -177,7 +177,12 @@ class AutoReps implements \IteratorAggregate
     {
         usort($reps, function (Representation $rep1, Representation $rep2) {
             $ascending = $rep1->getKiloBitrate() > $rep2->getKiloBitrate();
-            return $this->sort ? $ascending : !$ascending;
+            $descending = $rep1->getKiloBitrate() < $rep2->getKiloBitrate();
+
+            if($rep1->getKiloBitrate() == $rep2->getKiloBitrate()) return 0;
+            if($rep1->getKiloBitrate() < $rep2->getKiloBitrate()) return 1;
+            return -1;
+            // return $this->sort ? $ascending : $descending;
         });
     }
 
